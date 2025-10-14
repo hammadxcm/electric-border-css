@@ -33,132 +33,265 @@
     <header class="page-header">
         <h1 class="page-title">Electric Border Effect</h1>
         <p class="page-subtitle">Pure CSS & SVG animated borders • Hover to interact</p>
+        <div class="header-cta">
+            <a href="examples.html" class="cta-button">🎨 Customize & Play</a>
+            <a href="https://www.npmjs.com/package/electric-border-css" class="cta-button secondary" target="_blank">📦 Install from NPM</a>
+        </div>
     </header>
 
-    <main class="main-container">
-  <svg class="svg-container">
-    <defs>
-      <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="1" />
-        <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
-          <animate attributeName="dy" values="700; 0; 700" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
-        </feOffset>
+    <!-- SVG Filter (shared across all cards) -->
+    <svg class="svg-container">
+        <defs>
+            <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="1" />
+                <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
+                    <animate attributeName="dy" values="700; 0; 700" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="1" />
+                <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
+                    <animate attributeName="dy" values="0; -700; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="2" />
+                <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
+                    <animate attributeName="dx" values="490; 0; 490" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="2" />
+                <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
+                    <animate attributeName="dx" values="0; -490; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+                <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
+                <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
+                <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
+                <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="40" xChannelSelector="R" yChannelSelector="B" />
+            </filter>
+        </defs>
+    </svg>
 
-        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="1" />
-        <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
-          <animate attributeName="dy" values="0; -700; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
-        </feOffset>
-
-        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="2" />
-        <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
-          <animate attributeName="dx" values="490; 0; 490" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
-        </feOffset>
-
-        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="2" />
-        <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
-          <animate attributeName="dx" values="0; -490; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
-        </feOffset>
-
-        <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
-        <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
-        <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
-
-        <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="40" xChannelSelector="R" yChannelSelector="B" />
-      </filter>
-    </defs>
-  </svg>
-
-  <div class="card-container">
-    <div class="inner-container">
-      <div class="border-outer">
-        <div class="main-card"></div>
-      </div>
-      <div class="glow-layer-1"></div>
-      <div class="glow-layer-2"></div>
-    </div>
-
-    <div class="overlay-1"></div>
-    <div class="overlay-2"></div>
-    <div class="background-glow"></div>
-
-    <div class="content-container">
-      <div class="content-top">
-        <div class="scrollbar-glass">
-          Dramatic
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon">⚡</div>
+                <h3>Pure CSS & SVG</h3>
+                <p>Zero JavaScript dependencies, GPU-accelerated animations</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">🎨</div>
+                <h3>8 Color Presets</h3>
+                <p>Fully customizable with real-time preview playground</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">⚛️</div>
+                <h3>Multi-Framework</h3>
+                <p>React, Next.js, Vue 3, Svelte, or vanilla HTML/CSS</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">📦</div>
+                <h3>Lightweight</h3>
+                <p>Only 121KB unpacked, no external dependencies</p>
+            </div>
         </div>
-        <p class="title">Electric Border</p>
-      </div>
+    </section>
 
-      <hr class="divider" />
+    <!-- Color Showcase Section -->
+    <section class="showcase-section">
+        <h2 class="section-title">All 8 Color Presets</h2>
+        <p class="section-subtitle">Hover to see the effects • Click Customize to create your own</p>
 
-      <div class="content-bottom">
-        <p class="description">In case you'd like to emphasize something very dramatically.</p>
-      </div>
-    </div>
-  </div>
+        <div class="showcase-grid">
+            <!-- Cyan -->
+            <div class="card-container">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">CYAN</div>
+                        <p class="title">Default</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Classic electric cyan glow effect</p>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Purple -->
+            <div class="card-container electric-purple">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">PURPLE</div>
+                        <p class="title">Mystique</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Premium luxury design</p>
+                    </div>
+                </div>
+            </div>
 
-  <svg class="svg-container1">
-    <defs>
-      <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="1" />
-        <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
-          <animate attributeName="dy" values="700; 0; 700" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
-        </feOffset>
+            <!-- Pink -->
+            <div class="card-container electric-pink">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">PINK</div>
+                        <p class="title">Vibrant</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Bold eye-catching energy</p>
+                    </div>
+                </div>
+            </div>
 
-        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="1" />
-        <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
-          <animate attributeName="dy" values="0; -700; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
-        </feOffset>
+            <!-- Green -->
+            <div class="card-container electric-green">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">GREEN</div>
+                        <p class="title">Matrix</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Tech-inspired aesthetic</p>
+                    </div>
+                </div>
+            </div>
 
-        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="2" />
-        <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
-          <animate attributeName="dx" values="490; 0; 490" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
-        </feOffset>
+            <!-- Orange -->
+            <div class="card-container electric-orange">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">ORANGE</div>
+                        <p class="title">Fire</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Warm energetic vibes</p>
+                    </div>
+                </div>
+            </div>
 
-        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="2" />
-        <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
-          <animate attributeName="dx" values="0; -490; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
-        </feOffset>
+            <!-- Red -->
+            <div class="card-container electric-red">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">RED</div>
+                        <p class="title">Alert</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Attention-grabbing power</p>
+                    </div>
+                </div>
+            </div>
 
-        <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
-        <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
-        <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
+            <!-- Blue -->
+            <div class="card-container electric-blue">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">BLUE</div>
+                        <p class="title">Ocean</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Cool professional look</p>
+                    </div>
+                </div>
+            </div>
 
-        <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="40" xChannelSelector="R" yChannelSelector="B" />
-      </filter>
-    </defs>
-  </svg>
-
-  <div class="card-container1">
-    <div class="inner-container1">
-      <div class="border-outer1">
-        <div class="main-card1"></div>
-      </div>
-      <div class="glow-layer-11"></div>
-      <div class="glow-layer-21"></div>
-    </div>
-
-    <div class="overlay-11"></div>
-    <div class="overlay-21"></div>
-    <div class="background-glow1"></div>
-
-    <div class="content-container1">
-      <div class="content-top1">
-        <div class="scrollbar-glass1">
-          Dramatic
+            <!-- Yellow -->
+            <div class="card-container electric-yellow">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">YELLOW</div>
+                        <p class="title">Electric</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Bright lightning effect</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p class="title1">Electric Border</p>
-      </div>
-
-      <hr class="divider1" />
-
-      <div class="content-bottom1">
-        <p class="description1">In case you'd like to emphasize something very dramatically.</p>
-      </div>
-    </div>
-  </div>
-</main>
+    </section>
 
 <!-- Page Footer -->
 <footer class="page-footer">
