@@ -1,0 +1,95 @@
+{
+  "name": "electric-border-css",
+  "version": "1.0.1",
+  "description": "Stunning animated electric border effect using pure CSS and SVG. Available for React, Next.js, Vue, and Svelte.",
+  "main": "style.css",
+  "types": "index.d.ts",
+  "keywords": [
+    "css",
+    "svg",
+    "animation",
+    "border",
+    "electric-effect",
+    "react",
+    "nextjs",
+    "vue",
+    "svelte",
+    "component",
+    "ui",
+    "design",
+    "glow-effect",
+    "animated-border"
+  ],
+  "author": {
+    "name": "Fyniti",
+    "url": "https://fyniti.co.uk",
+    "email": "contact@fyniti.co.uk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hammadxcm/electric-border-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hammadxcm/electric-border-css/issues"
+  },
+  "homepage": "https://hammadxcm.github.io/electric-border-css/",
+  "license": "MIT",
+  "files": [
+    "style.css",
+    "components/",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./style.css",
+    "./style.css": "./style.css",
+    "./react": {
+      "types": "./components/react/ElectricBorder.tsx",
+      "import": "./components/react/ElectricBorder.tsx"
+    },
+    "./react/ElectricBorder.css": "./components/react/ElectricBorder.css",
+    "./nextjs": {
+      "types": "./components/nextjs/ElectricBorder.tsx",
+      "import": "./components/nextjs/ElectricBorder.tsx"
+    },
+    "./nextjs/ElectricBorder.css": "./components/nextjs/ElectricBorder.css",
+    "./vue": {
+      "types": "./components/vue/ElectricBorder.vue",
+      "import": "./components/vue/ElectricBorder.vue"
+    },
+    "./svelte": {
+      "types": "./components/svelte/ElectricBorder.svelte",
+      "svelte": "./components/svelte/ElectricBorder.svelte"
+    }
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "vue": ">=3.0.0",
+    "svelte": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0",
+    "vue": "^3.3.0",
+    "svelte": "^4.0.0"
+  },
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/hammadxcm"
+  }
+}

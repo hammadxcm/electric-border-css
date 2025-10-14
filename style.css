@@ -1,0 +1,1009 @@
+/* ===================================
+   ELECTRIC BORDER CSS
+   Pure CSS & SVG animated borders
+
+   Author: Fyniti (https://fyniti.co.uk)
+   GitHub: https://github.com/hammadxcm/electric-border-css
+   License: MIT
+   =================================== */
+
+/* ===================================
+   CSS VARIABLES
+   Customize these to change colors
+   =================================== */
+:root {
+  /* ===== PRIMARY CARD - CYAN ===== */
+  /* Change this color to customize the border */
+  --electric-border-color: #00fffb;
+
+  /* Auto-calculated based on border color */
+  --electric-light-color: oklch(from var(--electric-border-color) l c h);
+  --gradient-color: oklch(
+    from var(--electric-border-color) 0.3 calc(c / 2) h / 0.4
+  );
+  --color-neutral-900: oklch(0.185 0 0);
+
+  /* ===== SECONDARY CARD - YELLOW ===== */
+  /* Change this color for the second card variant */
+  --electric-border-color1: #f2ff00;
+
+  /* Auto-calculated based on second border color */
+  --electric-light-color1: oklch(from var(--electric-border-color1) l c h);
+  --gradient-color1: oklch(
+    from var(--electric-border-color1) 0.3 calc(c / 2) h / 0.4
+  );
+  --color-neutral-9001: oklch(0.185 0 0);
+
+  /* ===== ADDITIONAL COLOR PRESETS ===== */
+  /* Uncomment and use these for more variations */
+
+  /* Purple variant */
+  /* --electric-border-color: #b000ff; */
+
+  /* Pink variant */
+  /* --electric-border-color: #ff00ff; */
+
+  /* Green variant */
+  /* --electric-border-color: #00ff88; */
+
+  /* Blue variant */
+  /* --electric-border-color: #0088ff; */
+
+  /* Orange variant */
+  /* --electric-border-color: #ff6600; */
+}
+
+/* ===================================
+   COLOR PRESET CLASSES
+   Apply these classes to card-container for instant color changes
+   =================================== */
+
+/* Purple Electric */
+.electric-purple {
+  --electric-border-color: #b000ff;
+  --electric-light-color: oklch(from #b000ff l c h);
+  --gradient-color: oklch(from #b000ff 0.3 calc(c / 2) h / 0.4);
+}
+
+/* Pink Electric */
+.electric-pink {
+  --electric-border-color: #ff00ff;
+  --electric-light-color: oklch(from #ff00ff l c h);
+  --gradient-color: oklch(from #ff00ff 0.3 calc(c / 2) h / 0.4);
+}
+
+/* Green Electric */
+.electric-green {
+  --electric-border-color: #00ff88;
+  --electric-light-color: oklch(from #00ff88 l c h);
+  --gradient-color: oklch(from #00ff88 0.3 calc(c / 2) h / 0.4);
+}
+
+/* Orange Electric */
+.electric-orange {
+  --electric-border-color: #ff6600;
+  --electric-light-color: oklch(from #ff6600 l c h);
+  --gradient-color: oklch(from #ff6600 0.3 calc(c / 2) h / 0.4);
+}
+
+/* Red Electric */
+.electric-red {
+  --electric-border-color: #ff0044;
+  --electric-light-color: oklch(from #ff0044 l c h);
+  --gradient-color: oklch(from #ff0044 0.3 calc(c / 2) h / 0.4);
+}
+
+/* Blue Electric */
+.electric-blue {
+  --electric-border-color: #0088ff;
+  --electric-light-color: oklch(from #0088ff l c h);
+  --gradient-color: oklch(from #0088ff 0.3 calc(c / 2) h / 0.4);
+}
+
+/* Custom - Apply via JavaScript */
+.electric-custom {
+  /* Will be set dynamically */
+}
+
+/* ===================================
+   RESET & BASE STYLES
+   =================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: #151f28;
+  color: oklch(0.985 0 0);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===================================
+   NAVIGATION BAR
+   =================================== */
+.main-nav {
+  background: rgba(21, 31, 40, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 255, 251, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #00fffb;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-logo:hover {
+  opacity: 0.8;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #00fffb;
+}
+
+.nav-link.active {
+  color: #00fffb;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #00fffb;
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 20px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .nav-link {
+    font-size: 13px;
+  }
+}
+
+/* ===================================
+   PAGE HEADER
+   =================================== */
+.page-header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  background: linear-gradient(180deg, rgba(0, 255, 251, 0.03) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.page-title {
+  font-size: 48px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #00fffb 0%, #f2ff00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+/* ===================================
+   MAIN LAYOUT
+   =================================== */
+.main-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 90px;
+  justify-content: center;
+  min-height: calc(100vh - 140px);
+  padding: 40px 20px;
+}
+
+/* ===================================
+   SVG FILTERS
+   Creates the turbulent displacement effect
+   =================================== */
+.svg-container {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* ===================================
+   CARD CONTAINER - PRIMARY (CYAN)
+   Main wrapper with gradient background
+   =================================== */
+.card-container {
+     cursor: pointer;
+  padding: 2px;
+  border-radius: 24px;
+  position: relative;
+  background: linear-gradient(
+      -30deg,
+      var(--gradient-color),
+      transparent,
+      var(--gradient-color)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--color-neutral-900),
+      var(--color-neutral-900)
+    );
+  animation: rotateBorder 8s linear infinite;
+}
+
+/* Border color rotation animation */
+@keyframes rotateBorder {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    filter: hue-rotate(8deg) brightness(1.05);
+  }
+  100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+}
+
+/* ===================================
+   INNER CONTAINER & BORDER LAYERS
+   =================================== */
+.inner-container {
+  position: relative;
+}
+
+/* Primary border with 3D offset effect */
+.border-outer {
+  border: 1.5px solid  #00fffb;
+  border-radius: 24px;
+  padding-right: 4px;
+  padding-bottom: 4px;
+}
+
+/* Main card with SVG turbulence filter */
+.main-card {
+  width: 350px;
+  height: 500px;
+  border-radius: 24px;
+  margin-top: -4px;
+  margin-left: -4px;
+  filter: url(#turbulent-displace);
+  transition: .3s;
+}
+
+/* Hover state - subtle border and scale */
+.card-container:hover .main-card {
+  border: 1.5px solid var(--electric-border-color);
+  transform: scale(1.01);
+}
+
+/* Intensify glow on hover */
+.card-container:hover .glow-layer-1,
+.card-container:hover .glow-layer-2 {
+  animation: pulseHover 2s ease-in-out infinite;
+}
+
+/* Background glow intensity on hover */
+.card-container:hover .background-glow {
+  opacity: 0.3;
+  filter: blur(36px);
+}
+
+/* Hover pulse animation */
+@keyframes pulseHover {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1.01);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.02);
+  }
+}
+
+/* ===================================
+   GLOW EFFECTS - Continuous full border coverage using box-shadows only
+   Multiple layers for depth and luminosity
+   =================================== */
+.glow-layer-1 {
+  border-radius: 24px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow:
+    inset 0 0 0 2px #00fffb,
+    inset 0 0 10px 2px #00fffb,
+    0 0 10px 2px #00fffb,
+    0 0 20px 4px #00fffb;
+  opacity: 0.5;
+  animation: pulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Secondary glow layer - softer and wider blur */
+.glow-layer-2 {
+  border-radius: 24px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow:
+    inset 0 0 20px 4px var(--electric-light-color),
+    0 0 30px 8px var(--electric-light-color),
+    0 0 50px 12px #00fffb;
+  opacity: 0.4;
+  animation: pulse 3s ease-in-out infinite 0.5s;
+  pointer-events: none;
+}
+
+/* Gentle pulsing animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(1.01);
+  }
+}
+
+/* Overlay effects */
+.overlay-1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  transform: scale(1.1);
+  filter: blur(20px);
+  background: linear-gradient(
+    -30deg,
+    white,
+    transparent 30%,
+    transparent 70%,
+    white
+  );
+}
+
+.overlay-2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  opacity: 0.25;
+  mix-blend-mode: overlay;
+  transform: scale(1.1);
+  filter: blur(20px);
+  background: linear-gradient(
+    -30deg,
+    white,
+    transparent 30%,
+    transparent 70%,
+    white
+  );
+}
+
+/* Background glow */
+.background-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  filter: blur(28px);
+  transform: scale(1.1);
+  opacity: 0.15;
+  z-index: -1;
+  background: linear-gradient(
+    -30deg,
+    var(--electric-light-color),
+    transparent,
+    var(--electric-border-color)
+  );
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.15;
+    filter: blur(28px);
+  }
+  50% {
+    opacity: 0.25;
+    filter: blur(32px);
+  }
+}
+
+/* Content container */
+.content-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Content sections */
+.content-top {
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+  padding-bottom: 16px;
+  height: 100%;
+}
+
+.content-bottom {
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+  padding-top: 16px;
+}
+
+/* Scrollbar glass component */
+.scrollbar-glass {
+  background: radial-gradient(
+      47.2% 50% at 50.39% 88.37%,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    rgba(255, 255, 255, 0.04);
+  position: relative;
+  transition: background 0.3s ease;
+  border-radius: 14px;
+  width: fit-content;
+  height: fit-content;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.scrollbar-glass:hover {
+  background: radial-gradient(
+      47.2% 50% at 50.39% 88.37%,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    rgba(255, 255, 255, 0.08);
+}
+
+.scrollbar-glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1px;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.48) 16.73%,
+    rgba(255, 255, 255, 0.08) 30.2%,
+    rgba(255, 255, 255, 0.08) 68.2%,
+    rgba(255, 255, 255, 0.6) 81.89%
+  );
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* Typography */
+.title {
+  font-size: 36px;
+  font-weight: 500;
+  margin-top: auto;
+}
+
+.description {
+  opacity: 0.5;
+}
+
+/* Divider */
+.divider {
+  margin-top: auto;
+  border: none;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.1;
+  mask-image: linear-gradient(to right, transparent, black, transparent);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black,
+    transparent
+  );
+}
+
+
+
+
+.svg-container1 {
+  position: absolute;
+}
+
+/* Card container */
+.card-container1 {
+    cursor: pointer;
+  padding: 2px;
+  border-radius: 24px;
+  position: relative;
+  background: linear-gradient(
+      -30deg,
+      var(--gradient-color1),
+      transparent,
+      var(--gradient-color1)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--color-neutral-9001),
+      var(--color-neutral-9001)
+    );
+  animation: rotateBorder 8s linear infinite;
+}
+
+/* Inner container */
+.inner-container1 {
+  position: relative;
+}
+
+/* Border layers */
+.border-outer1 {
+  border: 1.5px solid  #00fffb;
+  border-radius: 24px;
+  padding-right: 4px;
+  padding-bottom: 4px;
+}
+
+.main-card1 {
+  width: 350px;
+  height: 500px;
+  border-radius: 24px;
+  margin-top: -4px;
+  margin-left: -4px;
+  filter: url(#turbulent-displace);
+  transition: .3s;
+}
+
+.card-container1:hover .main-card1 {
+ border: 1.5px solid var(--electric-border-color1);
+ cursor: pointer;
+ transform: scale(1.01);
+}
+
+.card-container1:hover .glow-layer-11,
+.card-container1:hover .glow-layer-21 {
+  animation: pulseHover 2s ease-in-out infinite;
+}
+
+.card-container1:hover .background-glow1 {
+  opacity: 0.3;
+  filter: blur(36px);
+}
+
+
+
+/* Glow effects - Continuous full border coverage using box-shadows only */
+.glow-layer-11 {
+  border-radius: 24px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow:
+    inset 0 0 0 2px #ffe100,
+    inset 0 0 10px 2px #ffe100,
+    0 0 10px 2px #ffe100,
+    0 0 20px 4px #ffe100;
+  opacity: 0.5;
+  animation: pulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.glow-layer-21 {
+  border-radius: 24px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow:
+    inset 0 0 20px 4px var(--electric-light-color1),
+    0 0 30px 8px var(--electric-light-color1),
+    0 0 50px 12px #ffe100;
+  opacity: 0.4;
+  animation: pulse 3s ease-in-out infinite 0.5s;
+  pointer-events: none;
+}
+
+/* Overlay effects */
+.overlay-11 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  transform: scale(1.1);
+  filter: blur(20px);
+  background: linear-gradient(
+    -30deg,
+    white,
+    transparent 30%,
+    transparent 70%,
+    white
+  );
+}
+
+.overlay-21 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  opacity: 0.25;
+  mix-blend-mode: overlay;
+  transform: scale(1.1);
+  filter: blur(20px);
+  background: linear-gradient(
+    -30deg,
+    white,
+    transparent 30%,
+    transparent 70%,
+    white
+  );
+}
+
+/* Background glow */
+.background-glow1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  filter: blur(28px);
+  transform: scale(1.1);
+  opacity: 0.15;
+  z-index: -1;
+  background: linear-gradient(
+    -30deg,
+    var(--electric-light-color1),
+    transparent,
+    var(--electric-border-color1)
+  );
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+/* Content container */
+.content-container1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Content sections */
+.content-top1 {
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+  padding-bottom: 16px;
+  height: 100%;
+}
+
+.content-bottom1 {
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+  padding-top: 16px;
+}
+
+/* Scrollbar glass component */
+.scrollbar-glass1 {
+  background: radial-gradient(
+      47.2% 50% at 50.39% 88.37%,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    rgba(255, 255, 255, 0.04);
+  position: relative;
+  transition: background 0.3s ease;
+  border-radius: 14px;
+  width: fit-content;
+  height: fit-content;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.scrollbar-glass1:hover {
+  background: radial-gradient(
+      47.2% 50% at 50.39% 88.37%,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    rgba(255, 255, 255, 0.08);
+}
+
+.scrollbar-glass1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1px;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.48) 16.73%,
+    rgba(255, 255, 255, 0.08) 30.2%,
+    rgba(255, 255, 255, 0.08) 68.2%,
+    rgba(255, 255, 255, 0.6) 81.89%
+  );
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* Typography */
+.title1 {
+  font-size: 36px;
+  font-weight: 500;
+  margin-top: auto;
+}
+
+.description1 {
+  opacity: 0.5;
+}
+
+/* Divider */
+.divider1 {
+  margin-top: auto;
+  border: none;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.1;
+  mask-image: linear-gradient(to right, transparent, black, transparent);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black,
+    transparent
+  );
+}
+
+/* ===================================
+   PAGE FOOTER
+   =================================== */
+.page-footer {
+  margin-top: 80px;
+  padding: 60px 40px 30px;
+  background: linear-gradient(0deg, rgba(0, 255, 251, 0.02) 0%, transparent 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-section p {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.footer-section code {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #00fffb;
+}
+
+.code-block {
+  display: block;
+  padding: 12px;
+  background: rgba(0, 255, 251, 0.05);
+  border: 1px solid rgba(0, 255, 251, 0.2);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  margin-top: 8px;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features-list li {
+  padding: 6px 0;
+  font-size: 14px;
+  opacity: 0.6;
+  position: relative;
+  padding-left: 20px;
+}
+
+.features-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #00fffb;
+  font-weight: bold;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  opacity: 0.5;
+  margin: 8px 0;
+}
+
+.footer-bottom a {
+  color: #00fffb;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.footer-bottom a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.github-link {
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    gap: 60px;
+    padding: 20px;
+  }
+
+  .page-title {
+    font-size: 36px;
+  }
+
+  .footer-content {
+    gap: 30px;
+    padding: 0 20px;
+  }
+}
+
+/* ===================================
+   ACCESSIBILITY
+   Respects user motion preferences
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Disable SVG animations */
+  animate {
+    display: none;
+  }
+}

@@ -1,0 +1,234 @@
+/**
+ * Electric Border Component Styles
+ * Author: Fyniti (https://fyniti.co.uk)
+ * License: MIT
+ */
+
+/* Card Container */
+.electric-card-container {
+  cursor: pointer;
+  padding: 2px;
+  border-radius: var(--border-radius, 24px);
+  position: relative;
+  background: linear-gradient(
+      -30deg,
+      var(--gradient-color),
+      transparent,
+      var(--gradient-color)
+    ),
+    linear-gradient(to bottom, oklch(0.185 0 0), oklch(0.185 0 0));
+  animation: electricRotateBorder 8s linear infinite;
+}
+
+@keyframes electricRotateBorder {
+  0% { filter: hue-rotate(0deg) brightness(1); }
+  50% { filter: hue-rotate(8deg) brightness(1.05); }
+  100% { filter: hue-rotate(0deg) brightness(1); }
+}
+
+.electric-inner-container {
+  position: relative;
+}
+
+.electric-border-outer {
+  border: 1.5px solid var(--electric-border-color);
+  border-radius: var(--border-radius, 24px);
+  padding-right: 4px;
+  padding-bottom: 4px;
+}
+
+.electric-main-card {
+  width: var(--card-width, 350px);
+  height: var(--card-height, 500px);
+  border-radius: var(--border-radius, 24px);
+  margin-top: -4px;
+  margin-left: -4px;
+  filter: url(#turbulent-displace-react);
+  transition: 0.3s;
+}
+
+.electric-card-container:not(.no-hover):hover .electric-main-card {
+  border: 1.5px solid var(--electric-border-color);
+  transform: scale(1.01);
+}
+
+/* Glow Layers - Continuous full border coverage using box-shadows only */
+.electric-glow-layer-1 {
+  border-radius: var(--border-radius, 24px);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow:
+    inset 0 0 0 2px var(--electric-border-color),
+    inset 0 0 10px 2px var(--electric-border-color),
+    0 0 10px 2px var(--electric-border-color),
+    0 0 20px 4px var(--electric-border-color);
+  opacity: var(--glow-intensity, 0.5);
+  animation: electricPulse var(--animation-speed, 3s) ease-in-out infinite;
+  pointer-events: none;
+}
+
+.electric-glow-layer-2 {
+  border-radius: var(--border-radius, 24px);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow:
+    inset 0 0 20px 4px var(--electric-light-color),
+    0 0 30px 8px var(--electric-light-color),
+    0 0 50px 12px var(--electric-border-color);
+  opacity: calc(var(--glow-intensity, 0.5) * 0.8);
+  animation: electricPulse var(--animation-speed, 3s) ease-in-out infinite 0.5s;
+  pointer-events: none;
+}
+
+@keyframes electricPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(1.01); }
+}
+
+.electric-card-container:not(.no-hover):hover .electric-glow-layer-1,
+.electric-card-container:not(.no-hover):hover .electric-glow-layer-2 {
+  animation: electricPulseHover 2s ease-in-out infinite;
+}
+
+@keyframes electricPulseHover {
+  0%, 100% { opacity: 0.6; transform: scale(1.01); }
+  50% { opacity: 0.4; transform: scale(1.02); }
+}
+
+/* Overlays */
+.electric-overlay-1, .electric-overlay-2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: var(--border-radius, 24px);
+  mix-blend-mode: overlay;
+  transform: scale(1.1);
+  filter: blur(20px);
+  background: linear-gradient(-30deg, white, transparent 30%, transparent 70%, white);
+}
+
+.electric-overlay-1 { opacity: 0.4; }
+.electric-overlay-2 { opacity: 0.25; }
+
+.electric-background-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: var(--border-radius, 24px);
+  filter: var(--blur-amount, blur(28px));
+  transform: scale(1.1);
+  opacity: 0.15;
+  z-index: -1;
+  background: linear-gradient(-30deg, var(--electric-light-color), transparent, var(--electric-border-color));
+  animation: electricGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes electricGlowPulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.25; }
+}
+
+.electric-card-container:not(.no-hover):hover .electric-background-glow {
+  opacity: 0.3;
+  filter: blur(36px);
+}
+
+/* Content */
+.electric-content-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.electric-content-top {
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+  padding-bottom: 16px;
+  height: 100%;
+}
+
+.electric-content-bottom {
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+  padding-top: 16px;
+}
+
+.electric-scrollbar-glass {
+  background: radial-gradient(47.2% 50% at 50.39% 88.37%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%),
+              rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  width: fit-content;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+
+.electric-scrollbar-glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1px;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.48) 16.73%, rgba(255, 255, 255, 0.08) 30.2%,
+                             rgba(255, 255, 255, 0.08) 68.2%, rgba(255, 255, 255, 0.6) 81.89%);
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+.electric-title {
+  font-size: 36px;
+  font-weight: 500;
+  margin-top: auto;
+  color: white;
+}
+
+.electric-description {
+  opacity: 0.5;
+  line-height: 1.5;
+  color: white;
+}
+
+.electric-divider {
+  margin-top: auto;
+  border: none;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.1;
+  mask-image: linear-gradient(to right, transparent, black, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black, transparent);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .electric-card-container *,
+  .electric-card-container *::before,
+  .electric-card-container *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

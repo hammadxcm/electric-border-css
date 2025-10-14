@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<!--
+  Electric Border CSS - Quick Start Template
+  Copy this entire file to test the effect instantly!
+
+  Author: Fyniti (https://fyniti.co.uk)
+  GitHub: https://github.com/hammadxcm/electric-border-css
+  License: MIT
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Border - Quick Start</title>
+    <style>
+        /* ===== MINIMAL REQUIRED STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #151f28;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ===== CUSTOMIZATION VARIABLES ===== */
+        :root {
+            /* Change this color to customize! */
+            --electric-border-color: #00fffb;  /* Try: #b000ff, #ff00ff, #00ff88, #ff6600 */
+            --electric-light-color: oklch(from var(--electric-border-color) l c h);
+            --gradient-color: oklch(from var(--electric-border-color) 0.3 calc(c / 2) h / 0.4);
+            --color-neutral-900: oklch(0.185 0 0);
+        }
+
+        /* ===== SVG FILTER ===== */
+        .svg-container {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        /* ===== CARD CONTAINER ===== */
+        .card-container {
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 24px;
+            position: relative;
+            background: linear-gradient(-30deg, var(--gradient-color), transparent, var(--gradient-color)),
+                        linear-gradient(to bottom, var(--color-neutral-900), var(--color-neutral-900));
+            animation: rotateBorder 8s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            50% { filter: hue-rotate(8deg) brightness(1.05); }
+            100% { filter: hue-rotate(0deg) brightness(1); }
+        }
+
+        .inner-container {
+            position: relative;
+        }
+
+        .border-outer {
+            border: 1.5px solid var(--electric-border-color);
+            border-radius: 24px;
+            padding-right: 4px;
+            padding-bottom: 4px;
+        }
+
+        .main-card {
+            width: 350px;
+            height: 500px;
+            border-radius: 24px;
+            margin-top: -4px;
+            margin-left: -4px;
+            filter: url(#turbulent-displace);
+            transition: .3s;
+        }
+
+        .card-container:hover .main-card {
+            border: 1.5px solid var(--electric-border-color);
+            transform: scale(1.01);
+        }
+
+        /* ===== GLOW LAYERS ===== */
+        .glow-layer-1 {
+            border-radius: 24px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow:
+                inset 0 0 0 2px var(--electric-border-color),
+                inset 0 0 10px 2px var(--electric-border-color),
+                0 0 10px 2px var(--electric-border-color),
+                0 0 20px 4px var(--electric-border-color);
+            opacity: 0.5;
+            animation: pulse 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .glow-layer-2 {
+            border-radius: 24px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow:
+                inset 0 0 20px 4px var(--electric-light-color),
+                0 0 30px 8px var(--electric-light-color),
+                0 0 50px 12px var(--electric-border-color);
+            opacity: 0.4;
+            animation: pulse 3s ease-in-out infinite 0.5s;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.25; transform: scale(1.01); }
+        }
+
+        .card-container:hover .glow-layer-1,
+        .card-container:hover .glow-layer-2 {
+            animation: pulseHover 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseHover {
+            0%, 100% { opacity: 0.6; transform: scale(1.01); }
+            50% { opacity: 0.4; transform: scale(1.02); }
+        }
+
+        /* ===== OVERLAYS ===== */
+        .overlay-1, .overlay-2 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 24px;
+            mix-blend-mode: overlay;
+            transform: scale(1.1);
+            filter: blur(20px);
+            background: linear-gradient(-30deg, white, transparent 30%, transparent 70%, white);
+        }
+
+        .overlay-1 { opacity: 0.4; }
+        .overlay-2 { opacity: 0.25; }
+
+        .background-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 24px;
+            filter: blur(28px);
+            transform: scale(1.1);
+            opacity: 0.15;
+            z-index: -1;
+            background: linear-gradient(-30deg, var(--electric-light-color), transparent, var(--electric-border-color));
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.15; filter: blur(28px); }
+            50% { opacity: 0.25; filter: blur(32px); }
+        }
+
+        .card-container:hover .background-glow {
+            opacity: 0.3;
+            filter: blur(36px);
+        }
+
+        /* ===== CONTENT ===== */
+        .content-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-top {
+            display: flex;
+            flex-direction: column;
+            padding: 48px;
+            padding-bottom: 16px;
+            height: 100%;
+        }
+
+        .content-bottom {
+            display: flex;
+            flex-direction: column;
+            padding: 48px;
+            padding-top: 16px;
+        }
+
+        .scrollbar-glass {
+            background: radial-gradient(47.2% 50% at 50.39% 88.37%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%),
+                        rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            width: fit-content;
+            padding: 8px 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        .scrollbar-glass::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 1px;
+            background: linear-gradient(150deg, rgba(255, 255, 255, 0.48) 16.73%, rgba(255, 255, 255, 0.08) 30.2%,
+                                       rgba(255, 255, 255, 0.08) 68.2%, rgba(255, 255, 255, 0.6) 81.89%);
+            border-radius: inherit;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+            -webkit-mask-composite: xor;
+            pointer-events: none;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: 500;
+            margin-top: auto;
+        }
+
+        .description {
+            opacity: 0.5;
+            line-height: 1.5;
+        }
+
+        .divider {
+            margin-top: auto;
+            border: none;
+            height: 1px;
+            background-color: currentColor;
+            opacity: 0.1;
+            mask-image: linear-gradient(to right, transparent, black, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black, transparent);
+        }
+
+        /* Instructions */
+        .instructions {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 251, 0.3);
+            max-width: 300px;
+        }
+
+        .instructions h3 {
+            color: #00fffb;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .instructions p {
+            font-size: 13px;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .instructions code {
+            background: rgba(0, 255, 251, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #00fffb;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .instructions {
+                position: static;
+                margin-bottom: 20px;
+            }
+
+            .main-card {
+                width: 300px;
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Instructions -->
+    <div class="instructions">
+        <h3>⚡ Quick Start</h3>
+        <p>Edit line 25 to change the color:</p>
+        <p><code>--electric-border-color: #00fffb;</code></p>
+        <p style="margin-top: 10px;">Try these colors:</p>
+        <p><code>#b000ff</code> Purple<br>
+           <code>#ff00ff</code> Pink<br>
+           <code>#00ff88</code> Green<br>
+           <code>#ff6600</code> Orange</p>
+    </div>
+
+    <!-- SVG Filter -->
+    <svg class="svg-container">
+        <defs>
+            <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="1" />
+                <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
+                    <animate attributeName="dy" values="700; 0; 700" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="1" />
+                <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
+                    <animate attributeName="dy" values="0; -700; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="2" />
+                <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
+                    <animate attributeName="dx" values="490; 0; 490" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="2" />
+                <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
+                    <animate attributeName="dx" values="0; -490; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+
+                <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
+                <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
+                <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
+
+                <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="40" xChannelSelector="R" yChannelSelector="B" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Electric Border Card -->
+    <div class="card-container">
+        <div class="inner-container">
+            <div class="border-outer">
+                <div class="main-card"></div>
+            </div>
+            <div class="glow-layer-1"></div>
+            <div class="glow-layer-2"></div>
+        </div>
+
+        <div class="overlay-1"></div>
+        <div class="overlay-2"></div>
+        <div class="background-glow"></div>
+
+        <div class="content-container">
+            <div class="content-top">
+                <div class="scrollbar-glass">Quick Start</div>
+                <p class="title">Electric Border</p>
+            </div>
+            <hr class="divider" />
+            <div class="content-bottom">
+                <p class="description">Copy this file and start customizing! Change the color on line 25 or explore examples.html for more options.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

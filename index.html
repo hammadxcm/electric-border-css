@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--
+  Electric Border CSS
+  Author: Fyniti (https://fyniti.co.uk)
+  GitHub: https://github.com/hammadxcm/electric-border-css
+  License: MIT
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Border CSS - Demo</title>
+    <meta name="description" content="Stunning animated electric border effect using pure CSS and SVG by Fyniti">
+    <meta name="author" content="Fyniti">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">⚡ Electric Border CSS</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Demo</a>
+                <a href="examples.html" class="nav-link">Interactive</a>
+                <a href="quick-start.html" class="nav-link">Quick Start</a>
+                <a href="https://github.com/hammadxcm/electric-border-css" target="_blank" class="nav-link">GitHub</a>
+                <a href="https://www.npmjs.com/package/electric-border-css" target="_blank" class="nav-link">NPM</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1 class="page-title">Electric Border Effect</h1>
+        <p class="page-subtitle">Pure CSS & SVG animated borders • Hover to interact</p>
+    </header>
+
+    <main class="main-container">
+  <svg class="svg-container">
+    <defs>
+      <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="1" />
+        <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
+          <animate attributeName="dy" values="700; 0; 700" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+        </feOffset>
+
+        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="1" />
+        <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
+          <animate attributeName="dy" values="0; -700; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+        </feOffset>
+
+        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="2" />
+        <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
+          <animate attributeName="dx" values="490; 0; 490" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+        </feOffset>
+
+        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="2" />
+        <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
+          <animate attributeName="dx" values="0; -490; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+        </feOffset>
+
+        <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
+        <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
+        <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
+
+        <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="40" xChannelSelector="R" yChannelSelector="B" />
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="card-container">
+    <div class="inner-container">
+      <div class="border-outer">
+        <div class="main-card"></div>
+      </div>
+      <div class="glow-layer-1"></div>
+      <div class="glow-layer-2"></div>
+    </div>
+
+    <div class="overlay-1"></div>
+    <div class="overlay-2"></div>
+    <div class="background-glow"></div>
+
+    <div class="content-container">
+      <div class="content-top">
+        <div class="scrollbar-glass">
+          Dramatic
+        </div>
+        <p class="title">Electric Border</p>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="content-bottom">
+        <p class="description">In case you'd like to emphasize something very dramatically.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <svg class="svg-container1">
+    <defs>
+      <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="1" />
+        <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
+          <animate attributeName="dy" values="700; 0; 700" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+        </feOffset>
+
+        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="1" />
+        <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
+          <animate attributeName="dy" values="0; -700; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+        </feOffset>
+
+        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="2" />
+        <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
+          <animate attributeName="dx" values="490; 0; 490" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+        </feOffset>
+
+        <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="2" />
+        <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
+          <animate attributeName="dx" values="0; -490; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+        </feOffset>
+
+        <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
+        <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
+        <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
+
+        <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="40" xChannelSelector="R" yChannelSelector="B" />
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="card-container1">
+    <div class="inner-container1">
+      <div class="border-outer1">
+        <div class="main-card1"></div>
+      </div>
+      <div class="glow-layer-11"></div>
+      <div class="glow-layer-21"></div>
+    </div>
+
+    <div class="overlay-11"></div>
+    <div class="overlay-21"></div>
+    <div class="background-glow1"></div>
+
+    <div class="content-container1">
+      <div class="content-top1">
+        <div class="scrollbar-glass1">
+          Dramatic
+        </div>
+        <p class="title1">Electric Border</p>
+      </div>
+
+      <hr class="divider1" />
+
+      <div class="content-bottom1">
+        <p class="description1">In case you'd like to emphasize something very dramatically.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Page Footer -->
+<footer class="page-footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Quick Customization</h3>
+      <p>Edit CSS variables in <code>style.css</code> to change colors:</p>
+      <code class="code-block">--electric-border-color: #00fffb;</code>
+    </div>
+    <div class="footer-section">
+      <h3>Usage</h3>
+      <p>Copy the HTML structure and CSS to your project. See <code>README.md</code> for detailed instructions.</p>
+    </div>
+    <div class="footer-section">
+      <h3>Features</h3>
+      <ul class="features-list">
+        <li>Pure CSS & SVG</li>
+        <li>No JavaScript</li>
+        <li>Fully Customizable</li>
+        <li>Performance Optimized</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Made with ❤️ by <a href="https://fyniti.co.uk" target="_blank" rel="noopener noreferrer">Fyniti</a> for the developer community • MIT License</p>
+    <p class="github-link">GitHub: <a href="https://github.com/hammadxcm/electric-border-css" target="_blank" rel="noopener noreferrer">@hammadxcm</a></p>
+  </div>
+</footer>
+</body>
+</html>

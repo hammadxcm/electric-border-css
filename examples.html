@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<!--
+  Electric Border CSS - Interactive Examples
+  Author: Fyniti (https://fyniti.co.uk)
+  GitHub: https://github.com/hammadxcm/electric-border-css
+  License: MIT
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Border CSS - Interactive Examples</title>
+    <meta name="description" content="Interactive examples and customization for Electric Border CSS">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Control Panel Styles */
+        .control-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(21, 31, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 251, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            width: 320px;
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .control-panel h2 {
+            margin: 0 0 20px 0;
+            font-size: 20px;
+            color: #00fffb;
+            font-weight: 600;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        .control-group input[type="color"] {
+            width: 100%;
+            height: 50px;
+            border: 2px solid rgba(0, 255, 251, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #00fffb;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 255, 251, 0.5);
+        }
+
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #00fffb;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 255, 251, 0.5);
+        }
+
+        .range-value {
+            display: inline-block;
+            margin-left: 10px;
+            color: #00fffb;
+            font-weight: 600;
+        }
+
+        .preset-colors {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .preset-btn {
+            width: 100%;
+            height: 45px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--preset-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preset-btn:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 20px var(--preset-color);
+        }
+
+        .preset-btn.active {
+            border-color: #fff;
+            box-shadow: 0 0 20px var(--preset-color);
+        }
+
+        .copy-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00fffb 0%, #00d4d1 100%);
+            color: #151f28;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 251, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #00ff88 0%, #00d470 100%);
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 60px;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .example-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .example-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+        }
+
+        .toggle-panel-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #00fffb;
+            color: #151f28;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .toggle-panel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 251, 0.4);
+        }
+
+        .control-panel.hidden {
+            transform: translateX(400px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .code-preview {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 251, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #00fffb;
+            max-height: 200px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        .code-preview code {
+            display: block;
+            white-space: pre;
+        }
+
+        @media (max-width: 768px) {
+            .control-panel {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+
+            .examples-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">⚡ Electric Border CSS</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Demo</a>
+                <a href="examples.html" class="nav-link active">Interactive</a>
+                <a href="quick-start.html" class="nav-link">Quick Start</a>
+                <a href="https://github.com/hammadxcm/electric-border-css" target="_blank" class="nav-link">GitHub</a>
+                <a href="https://www.npmjs.com/package/electric-border-css" target="_blank" class="nav-link">NPM</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1 class="page-title">Interactive Examples</h1>
+        <p class="page-subtitle">Customize colors, speed, and intensity in real-time • Copy code instantly</p>
+    </header>
+
+    <!-- Toggle Panel Button -->
+    <button class="toggle-panel-btn" id="togglePanel">🎨 Customize</button>
+
+    <!-- Control Panel -->
+    <div class="control-panel hidden" id="controlPanel">
+        <h2>⚡ Customize Effects</h2>
+
+        <!-- Color Picker -->
+        <div class="control-group">
+            <label for="colorPicker">Border Color</label>
+            <input type="color" id="colorPicker" value="#00fffb">
+        </div>
+
+        <!-- Preset Colors -->
+        <div class="control-group">
+            <label>Quick Presets</label>
+            <div class="preset-colors">
+                <button class="preset-btn active" data-color="#00fffb" style="--preset-color: #00fffb;" title="Cyan"></button>
+                <button class="preset-btn" data-color="#f2ff00" style="--preset-color: #f2ff00;" title="Yellow"></button>
+                <button class="preset-btn" data-color="#b000ff" style="--preset-color: #b000ff;" title="Purple"></button>
+                <button class="preset-btn" data-color="#ff00ff" style="--preset-color: #ff00ff;" title="Pink"></button>
+                <button class="preset-btn" data-color="#00ff88" style="--preset-color: #00ff88;" title="Green"></button>
+                <button class="preset-btn" data-color="#ff6600" style="--preset-color: #ff6600;" title="Orange"></button>
+                <button class="preset-btn" data-color="#ff0044" style="--preset-color: #ff0044;" title="Red"></button>
+                <button class="preset-btn" data-color="#0088ff" style="--preset-color: #0088ff;" title="Blue"></button>
+            </div>
+        </div>
+
+        <!-- Animation Speed -->
+        <div class="control-group">
+            <label for="speedSlider">Animation Speed <span class="range-value" id="speedValue">3s</span></label>
+            <input type="range" id="speedSlider" min="1" max="10" step="0.5" value="3">
+        </div>
+
+        <!-- Glow Intensity -->
+        <div class="control-group">
+            <label for="intensitySlider">Glow Intensity <span class="range-value" id="intensityValue">0.5</span></label>
+            <input type="range" id="intensitySlider" min="0.1" max="1" step="0.1" value="0.5">
+        </div>
+
+        <!-- Blur Amount -->
+        <div class="control-group">
+            <label for="blurSlider">Background Blur <span class="range-value" id="blurValue">28px</span></label>
+            <input type="range" id="blurSlider" min="10" max="50" step="2" value="28">
+        </div>
+
+        <!-- Copy Code Section -->
+        <div class="control-group">
+            <label>Get Code</label>
+            <button class="copy-btn" id="copyHTMLBtn">📋 Copy HTML</button>
+            <button class="copy-btn" id="copyCSSBtn">📋 Copy CSS</button>
+        </div>
+
+        <!-- Code Preview -->
+        <div class="code-preview" id="codePreview">
+            <code>Select a copy button to see the code...</code>
+        </div>
+    </div>
+
+    <!-- SVG Filter -->
+    <svg class="svg-container">
+        <defs>
+            <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="1" />
+                <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
+                    <animate attributeName="dy" values="700; 0; 700" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="1" />
+                <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
+                    <animate attributeName="dy" values="0; -700; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise1" seed="2" />
+                <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
+                    <animate attributeName="dx" values="490; 0; 490" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+
+                <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="12" result="noise2" seed="2" />
+                <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
+                    <animate attributeName="dx" values="0; -490; 0" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" />
+                </feOffset>
+
+                <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
+                <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
+                <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
+
+                <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="40" xChannelSelector="R" yChannelSelector="B" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Main Examples Grid -->
+    <main class="examples-grid">
+        <!-- Interactive Card -->
+        <div class="example-item">
+            <div class="example-label">🎨 Interactive (Customize Me!)</div>
+            <div class="card-container" id="customCard">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">Custom</div>
+                        <p class="title">Your Design</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Customize this card using the control panel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cyan -->
+        <div class="example-item">
+            <div class="example-label">💎 Cyan (Default)</div>
+            <div class="card-container">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">Classic</div>
+                        <p class="title">Cyan Electric</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">The original electric border effect.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purple -->
+        <div class="example-item">
+            <div class="example-label">💜 Purple Mystique</div>
+            <div class="card-container electric-purple">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">Mystical</div>
+                        <p class="title">Purple Power</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Perfect for premium and luxury designs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pink -->
+        <div class="example-item">
+            <div class="example-label">💖 Pink Energy</div>
+            <div class="card-container electric-pink">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">Vibrant</div>
+                        <p class="title">Pink Pulse</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Bold and eye-catching design.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Green -->
+        <div class="example-item">
+            <div class="example-label">💚 Green Matrix</div>
+            <div class="card-container electric-green">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">Tech</div>
+                        <p class="title">Green Grid</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Matrix-inspired tech aesthetic.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orange -->
+        <div class="example-item">
+            <div class="example-label">🧡 Orange Fire</div>
+            <div class="card-container electric-orange">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">Energetic</div>
+                        <p class="title">Orange Blaze</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Warm and energetic vibes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Red -->
+        <div class="example-item">
+            <div class="example-label">❤️ Red Alert</div>
+            <div class="card-container electric-red">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">Bold</div>
+                        <p class="title">Red Power</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Attention-grabbing and powerful.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blue -->
+        <div class="example-item">
+            <div class="example-label">💙 Blue Ocean</div>
+            <div class="card-container electric-blue">
+                <div class="inner-container">
+                    <div class="border-outer">
+                        <div class="main-card"></div>
+                    </div>
+                    <div class="glow-layer-1"></div>
+                    <div class="glow-layer-2"></div>
+                </div>
+
+                <div class="overlay-1"></div>
+                <div class="overlay-2"></div>
+                <div class="background-glow"></div>
+
+                <div class="content-container">
+                    <div class="content-top">
+                        <div class="scrollbar-glass">Calm</div>
+                        <p class="title">Blue Wave</p>
+                    </div>
+                    <hr class="divider" />
+                    <div class="content-bottom">
+                        <p class="description">Cool and professional look.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>How to Use</h3>
+                <p>Click "Customize" to open the control panel. Adjust colors, speed, and intensity in real-time. Use the copy buttons to get the code!</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Start</h3>
+                <p>Add the color preset class to your card-container:</p>
+                <code class="code-block">&lt;div class="card-container electric-purple"&gt;</code>
+            </div>
+            <div class="footer-section">
+                <h3>More Info</h3>
+                <p>Visit the main demo page and README for detailed documentation and implementation guides.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Made with ❤️ by <a href="https://fyniti.co.uk" target="_blank" rel="noopener noreferrer">Fyniti</a> • MIT License</p>
+            <p class="github-link">GitHub: <a href="https://github.com/hammadxcm/electric-border-css" target="_blank" rel="noopener noreferrer">@hammadxcm</a></p>
+        </div>
+    </footer>
+
+    <script src="examples.js"></script>
+</body>
+</html>
