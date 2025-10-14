@@ -16,7 +16,7 @@
         /* Control Panel Styles */
         .control-panel {
             position: fixed;
-            top: 20px;
+            top: 80px;
             right: 20px;
             background: rgba(21, 31, 40, 0.95);
             backdrop-filter: blur(10px);
@@ -24,9 +24,9 @@
             border-radius: 16px;
             padding: 24px;
             width: 320px;
-            max-height: 90vh;
+            max-height: calc(90vh - 80px);
             overflow-y: auto;
-            z-index: 1000;
+            z-index: 1001;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
@@ -176,7 +176,7 @@
 
         .toggle-panel-btn {
             position: fixed;
-            top: 20px;
+            top: 80px;
             right: 20px;
             background: #00fffb;
             color: #151f28;
@@ -185,7 +185,7 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            z-index: 999;
+            z-index: 1001;
             transition: all 0.3s ease;
             font-size: 14px;
         }
@@ -225,6 +225,12 @@
                 width: calc(100% - 40px);
                 right: 20px;
                 left: 20px;
+                top: 140px;
+                max-height: calc(90vh - 140px);
+            }
+
+            .toggle-panel-btn {
+                top: 140px;
             }
 
             .examples-grid {
