@@ -83,7 +83,7 @@
     "@types/react": "^18.0.0",
     "typescript": "^5.0.0",
     "vue": "^3.3.0",
-    "svelte": "^4.0.0"
+    "svelte": "^5.57.2"
   },
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0"
